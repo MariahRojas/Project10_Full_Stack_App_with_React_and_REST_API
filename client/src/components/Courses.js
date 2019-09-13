@@ -18,7 +18,11 @@ class Courses extends Component {
     render() {
         return (
             <div className="bounds">
-                <li>list</li>
+                <ul>
+                    {this.state.allCourses.map(allCourse =>
+                    <li key={allCourse.id}>{allCourse.title} {allCourse.description}</li>
+                    )}
+                </ul>
             </div>
         )
     }
