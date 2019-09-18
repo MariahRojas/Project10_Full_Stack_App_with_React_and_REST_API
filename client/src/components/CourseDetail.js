@@ -5,24 +5,33 @@
 
 import React, { Component } from 'react';
 
-class CourseDetail extends Component {
-    constructor() {
-        super()
-        this.state = {
-            courses: []
-        }
-    }
+import { Link } from 'react-router-dom';
 
-    //runs automatically when component is mounted
-    componentDidMount() {
-        fetch('http://localhost:5000/api/courses') //call to back-end
-            .then(res => res.json())
-            .then(courses => this.setState({ courses }, () => console.log('Courses fetched..', courses)))
-    }
+class CourseDetail extends Component {
+    // constructor() {
+    //     super()             //call super becuase this is being imbedded into a parent component 
+    //     this.state = {      //initiaze state 
+    //         courses: []
+    //     }
+    // }
+
+    // //lifecycle method runs automatically when component is mounted
+    // componentDidMount() {
+    //     fetch('http://localhost:5000/api/courses') //call to back-end
+    //         .then(res => res.json())
+    //         .then(courses => this.setState({courses}, () => console.log('Courses fetched..', courses)))
+    // }
 
     render() {
-
+        return (
+            <div className="actions--bar">
+                <div className="bounds">
+                    <div className="grid-100"><span><a class="button" href="update-course.html">Update Course</a><a class="button" href="#">Delete Course</a></span><a
+                        className="button button-secondary" href="index.html">Return to List</a></div>
+                </div>
+            </div>
+        )
     }
 }
-
+        
 export default CourseDetail

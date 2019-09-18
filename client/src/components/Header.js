@@ -10,7 +10,7 @@ const Header = (props) => {
         <div className="header">
             <div className="bounds">
             <h1 className="header--logo"><Link to="/">Courses</Link></h1>
-            <nav><a className="signup" href="sign-up">Sign Up </a><a className="signin" href="sign-in">Sign In</a></nav>
+            <nav><a className="signup" href="signup">Sign Up </a><a className="signin" href="sign-in">Sign In</a></nav>
             </div>
         </div>      
     )
