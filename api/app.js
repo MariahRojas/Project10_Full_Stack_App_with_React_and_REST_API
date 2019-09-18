@@ -16,6 +16,7 @@ const app = express();
 // Enable All CORS Requests (Cross-Origin Resource Sharing)
 app.use(cors());
 
+
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
 

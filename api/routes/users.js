@@ -41,6 +41,8 @@ router.post('/users', async (req,res, next) => {
 })
 
 
+module.exports = router;
+
 // router.post('/users', (req, res) => {
 //   // Get the user from the request body.
 //   const user = req.body;
@@ -70,5 +72,3 @@ router.post('/users', async (req,res, next) => {
 //     res.status(201).end();
 //   }
 // });
-
-module.exports = router;

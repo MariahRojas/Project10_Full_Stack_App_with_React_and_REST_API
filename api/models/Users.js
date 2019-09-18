@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
           msg: 'A value for firstName is required',
         },
         notEmpty: {
-          msg: 'firstName can not be left empty',
+          msg: 'firstName cannot be left empty',
         },
       }
     },

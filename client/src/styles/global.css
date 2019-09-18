@@ -221,7 +221,7 @@ body {
 }
 /* line 23, ../sass/global.sass */
 .header--logo a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgb(255, 255, 255);
 }
 /* line 25, ../sass/global.sass */
 .header--logo a:hover {

@@ -64,14 +64,12 @@ router.post('/courses', authUser, async ( req, res, next ) => {
     }
 });
 
-//Updates a course and returns to content 
+//Updates a course and returns no content 
 router.put('/courses/:id', authUser, async ( req, res, next ) => {
     const { title, description, estimatedTime, materialsNeeded } = req.body;
     const userId = req.currentUser.id;
     const err = new Error;
 
-    
-    
     try {
         const course = await Course.findByPk(req.params.id,options);
         if (Object.keys(req.body).length === 0) {
