@@ -10,8 +10,12 @@ import Header from './components/Header';
 import Courses from './components/Courses';
 import NewCourse from './components/CreateCourse';
 import SignUp from './components/UserSignUp';
+import SignOut from './components/UserSignIn'
+import SignIn from './components/UserSignIn'
+import withContext from './Context';
+
 //context
-//const NewCourseWithContext = withContext(NewCourse);
+const HeaderWithContext = withContext(Header);
 
 class App extends Component {
 
@@ -20,7 +24,7 @@ class App extends Component {
       // JSX to render goes here...
       <Router>
       <React.Fragment>
-        <Header />
+        <HeaderWithContext />
         <Switch>
         <Route exact path="/" component={Courses} />
         <Route exact path="/courses/create" component={NewCourse} />
