@@ -3,70 +3,188 @@
     This component also renders a "Cancel" button that returns the user to the default route (i.e. the list of courses). */
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
-class NewCourse extends Component {
-    // constructor() {
-    //     super()             //call super becuase this is being imbedded into a parent component 
-    //     this.state = {      //initiaze state 
-    //         courses: []
-    //     }
-    // }
+class NewCourse extends Component{
 
-    // //lifecycle method runs automatically when component is mounted
-    // componentDidMount() {
-    //     fetch('http://localhost:5000/api/courses') //call to back-end
-    //         .then(res => res.json())
-    //         .then(courses => this.setState({courses}, () => console.log('Courses fetched..', courses)))
-    // }
+  state = {
+      title:'',
+      description:'',
+      estimatedTime:'',
+      materialsNeeded:'',
+      user : this.props.context.authenticatedUser,
+      errorMessages: null,
+      redirect: false,
+      redirectPath: null,
+      redirectMessages: null,
+  }
 
-    render() {
-        return (
-            <div className="bounds course--detail">
-                <h1>Create Course</h1>
-                <div>
-                    <div>
-                        <h2 className="validation--errors--label">Validation errors</h2>
-                        <div className="validation-errors">
-                            <ul>
-                                <li>Please provide a value for "Title"</li>
-                                <li>Please provide a value for "Description"</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <form>
-                        <div className="grid-66">
-                            <div className="course--header">
-                                <h4 className="course--label">Course</h4>
-                                <div><input id="title" name="title" type="text" className="input-title course--title--input" placeholder="Course title..."
-                                    value=""></input></div>
-                                <p>By Joe Smith</p>
-                            </div>
-                            <div className="course--description">
-                                <div><textarea id="description" name="description" className="" placeholder="Course description..."></textarea></div>
-                            </div>
-                        </div>
-                        <div className="grid-25 grid-right">
-                            <div className="course--stats">
-                                <ul className="course--stats--list">
-                                    <li className="course--stats--list--item">
-                                        <h4>Estimated Time</h4>
-                                        <div><input id="estimatedTime" name="estimatedTime" type="text" className="course--time--input"
-                                            placeholder="Hours" value=""></input></div>
-                                    </li>
-                                    <li className="course--stats--list--item">
-                                        <h4>Materials Needed</h4>
-                                        <div><textarea id="materialsNeeded" name="materialsNeeded" className="" placeholder="List materials..."></textarea></div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="grid-100 pad-bottom"><button className="button" type="submit">Create Course</button><Link to="/"><button className="button button-secondary" >Cancel</button></Link></div>
-                    </form>
-                </div>
-            </div>
-        )
+  submit = async (e) => {
+
+    e.preventDefault();
+    const { authenticatedUser, cryptr, data } = this.props.context;
+
+    const {
+      title,
+      description,
+      estimatedTime,
+      materialsNeeded,
+      user
+    } = this.state;
+
+    const newData = {
+      title,
+      description,
+      estimatedTime,
+      materialsNeeded,
+      user
     }
+
+    const { emailAddress, password } = authenticatedUser;
+    const decryptedString = cryptr.decrypt(password);//decrypt password
+
+    try{
+      
+      await data.createCourses('/courses', newData, emailAddress ,decryptedString);
+      this.props.history.push('/');//goes to home page once course is created
+    
+    }catch(err){
+
+      if(err.status === 500){
+        this.setState({
+            redirect:true,
+            redirectPath: '/error',
+            redirectMessages: err
+        });
+      }  else if(err.message.length > 0){
+        this.setState({ errorMessages: err.message });
+      }
+    }
+  }
+
+  //changes value of state from input form 
+  change = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({[name]: value});
+  }
+
+
+
+  render(){
+    
+    const {
+      title,
+      description,
+      estimatedTime,
+      materialsNeeded,
+      user,
+      errorMessages,
+      redirect,
+      redirectPath,
+      redirectMessages
+    } = this.state;
+
+    const { errDisplay,cancel } = this.props.context.actions;
+  
+    //if error redirect to error page
+    if(redirect){
+      return <Redirect to={{
+          pathname: redirectPath,
+          state: redirectMessages
+      }} />
+    }
+
+    return(
+      <div className="bounds course--detail">
+        <h1>Create Course</h1>
+        {
+          //diplayes validation messages if available 
+          (errorMessages !== null)
+          ?errDisplay(errorMessages)
+          :false
+        }
+        <div>
+          <form onSubmit={this.submit}>
+            <div className="grid-66">
+              <div className="course--header">
+                <h4 className="course--label">Course</h4>
+                <div>
+                  <input 
+                  id="title" 
+                  name="title" 
+                  type="text" 
+                  className="input-title course--title--input" 
+                  placeholder="Course title..."
+                  value={title}
+                  onChange={this.change}
+                  />
+                </div>
+                <p>By {`${user.firstName} ${user.lastName}`}</p>
+              </div>
+              <div className="course--description">
+                <div>
+                  <textarea 
+                  id="description" 
+                  name="description" 
+                  className="" 
+                  placeholder="Course description..."
+                  value={description}
+                  onChange={this.change}>
+                  </textarea>
+                </div>
+              </div>
+            </div>
+            <div className="grid-25 grid-right">
+              <div className="course--stats">
+                <ul className="course--stats--list">
+                  <li className="course--stats--list--item">
+                    <h4>Estimated Time</h4>
+                    <div>
+                      <input 
+                      id="estimatedTime" 
+                      name="estimatedTime" 
+                      type="text" 
+                      className="course--time--input"
+                      placeholder="Hours" 
+                      value={estimatedTime}
+                      onChange={this.change}
+                      />
+                    </div>
+                  </li>
+                  <li className="course--stats--list--item">
+                    <h4>Materials Needed</h4>
+                    <div>
+                      <textarea 
+                      id="materialsNeeded" 
+                      name="materialsNeeded" 
+                      className="" 
+                      placeholder="List materials..."
+                      value={materialsNeeded}
+                      onChange={this.change}>
+                      </textarea>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="grid-100 pad-bottom">
+              <button
+              className="button" 
+              type="submit">
+              Create Course
+              </button>
+              <button
+              className="button button-secondary" 
+              onClick={e => cancel(e)}>
+              Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    )
+  }
 }
-        
+
 export default NewCourse

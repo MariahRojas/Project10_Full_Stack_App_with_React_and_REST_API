@@ -16,19 +16,32 @@ const app = express();
 // Enable All CORS Requests (Cross-Origin Resource Sharing)
 app.use(cors());
 
-
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
 
-//Testing the connection
-sequelize
-  .authenticate()
-  .then(() => {
+// //Testing the connection
+// sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log('Connection has been established successfully.');
+//   })
+//   .catch(err => {
+//     console.error('Unable to connect to the database:', err);
+//   });
+
+//Testing the connection to the database
+(async () => {
+  try {
+    await sequelize.authenticate();    
+    //Sync models
+    await sequelize.sync();
     console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
+
+  }catch(err){
+    console.log('Unable to connect to the database:', err)
+
+  }
+})(sequelize)
 
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
@@ -75,4 +88,4 @@ app.set('port', process.env.PORT || 5000);
 // start listening on our port
 const server = app.listen(app.get('port'), () => {
   console.log(`Express server is listening on port ${server.address().port}`);
-});
+})

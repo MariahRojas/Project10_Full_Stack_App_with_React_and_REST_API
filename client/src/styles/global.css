@@ -221,7 +221,7 @@ body {
 }
 /* line 23, ../sass/global.sass */
 .header--logo a {
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.5);
 }
 /* line 25, ../sass/global.sass */
 .header--logo a:hover {
@@ -242,6 +242,7 @@ body {
 .header nav {
   float: right;
   margin-top: 3px;
+  margin-right: 10px;
 }
 /* line 37, ../sass/global.sass */
 .header nav a {
@@ -582,7 +583,7 @@ p {
 /* line 460, ../sass/global.sass */
 .signin,
 .signup {
-  margin-top: 60px;
+  margin-top: 5px;
 }
 
 /* line 468, ../sass/global.sass */
@@ -747,7 +748,35 @@ input:focus {
   padding: 15px 0 40px 10px;
 }
 
+.validation-errors li {
+  text-align: center;
+  background-color: antiquewhite;
+  margin: 10px 0;
+  padding: 2px 0;
+  border: 1px #7c689b solid;
+  border-radius: 10px;
+  width: 35%;
+}
+.signup li,.signin li {
+  
+  width: 100%;
+}
 /* reduce bottom margin on the course description textarea element */
 .course--description textarea {
   margin-bottom: 20px;
+}
+
+.notification{
+  text-align: center;
+  padding: 10px 0;
+  background-color: #3f3b44;
+  color: #ccc;
+	transition-property: all;
+	transition-duration: .5s;
+	transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.closed {
+  height: 0;
+  padding: 0;
 }

@@ -1,38 +1,74 @@
-import React, {Component} from 'react';
-import { 
-  BrowserRouter as Router, 
-  Route, 
-  Switch 
+import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
 } from 'react-router-dom';
 
 //components
 import Header from './components/Header';
 import Courses from './components/Courses';
 import NewCourse from './components/CreateCourse';
-import SignUp from './components/UserSignUp';
-import SignOut from './components/UserSignIn'
-import SignIn from './components/UserSignIn'
+import UpdateCourse from './components/UpdateCourse';
+import CourseDetail from './components/CourseDetail';
+import UserSignUp from './components/UserSignUp';
+import UserSignIn from './components/UserSignIn';
+import UserSignOut from './components/UserSignOut';
+import ErrorHandler from './components/ErrorHandler';
 import withContext from './Context';
 
-//context
+//components withContext
 const HeaderWithContext = withContext(Header);
+const CoursesWithContext = withContext(Courses);
+const NewCourseWithContext = withContext(NewCourse);
+const UpdateCourseWithContext = withContext(UpdateCourse);
+const UsersCourseWithContext = withContext(CourseDetail);
+const SignUpWithContext = withContext(UserSignUp);
+const SignInWithContext = withContext(UserSignIn);
+const SignOutWithContext = withContext(UserSignOut);
+const ErrorHandlerWithContext = withContext(ErrorHandler);
+
 
 class App extends Component {
+  render(){
 
-  render () {
+    //shows when authenticated user is logged in else redirect to homepage 
+    const PrivateRoute = withContext(({context,component: Component, ...rest }) => {
+      return (
+        <Route
+          {...rest}
+          render={(props) => context.authenticatedUser !== null ? (
+              <Component {...props} />
+            ) : (
+              <Redirect to={{
+                pathname: '/signin',
+                state: { from: props.location }
+              }} />
+            )
+          }
+        />
+      )
+    })
+
     return (
-      // JSX to render goes here...
       <Router>
       <React.Fragment>
         <HeaderWithContext />
         <Switch>
-        <Route exact path="/" component={Courses} />
-        <Route exact path="/courses/create" component={NewCourse} />
-        <Route path="/signup" component={SignUp} />
+        <Route exact path="/" component={CoursesWithContext} />
+        <PrivateRoute exact path="/courses/create" component={NewCourseWithContext} />
+        <PrivateRoute exact path="/courses/:id/update" component={UpdateCourseWithContext} />
+        <Route exact path="/courses/:id" component={UsersCourseWithContext} />
+        <Route path="/signup" component={SignUpWithContext} />
+        <Route path="/signin" component={SignInWithContext} />
+        <Route path="/signOut" component={SignOutWithContext} />
+        <Route path="/forbidden" component={ErrorHandlerWithContext} />
+        <Route component={ErrorHandlerWithContext} />
         </Switch>
       </React.Fragment>
-    </Router>
-    );
+      </Router>
+    )
   }
 }
 
