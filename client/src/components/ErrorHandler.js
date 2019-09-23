@@ -1,6 +1,6 @@
-import React,{ Fragment } from 'react';
+import React, { Fragment } from 'react';
 
-const ErrorHandler = ({location:{ state }}) => {
+const ErrorHandler = ({ location:{ state } }) => {
 
 let title;
 let message;
@@ -17,6 +17,6 @@ return(
         <h1>{title}</h1>
         <p>{message}</p>
     </Fragment>)
-};
+}
 
 export default ErrorHandler;

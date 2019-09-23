@@ -44,18 +44,17 @@ class NewCourse extends Component{
     const decryptedString = cryptr.decrypt(password);//decrypt password
 
     try{
-      
       await data.createCourses('/courses', newData, emailAddress ,decryptedString);
-      this.props.history.push('/');//goes to home page once course is created
+      this.props.history.push('/'); //goes to home page once course is created
     
     }catch(err){
-
       if(err.status === 500){
         this.setState({
             redirect:true,
             redirectPath: '/error',
             redirectMessages: err
-        });
+        })
+
       }  else if(err.message.length > 0){
         this.setState({ errorMessages: err.message });
       }

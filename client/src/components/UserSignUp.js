@@ -24,7 +24,7 @@ class SignUp extends Component{
         if(password !== confirmPassword){
 
             this.setState({
-                errorMessages:['Make Sure Both Password Matchs']
+                errorMessages:['Password does not match.']
             })
         }else {
             this.submit()

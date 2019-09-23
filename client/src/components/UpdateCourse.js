@@ -47,7 +47,7 @@ class UpdateCourse extends PureComponent{
                 //throws error if user is unauthorized else fetch data
                 if(authenticatedUser.id !== User.id){                   
                      let err = {
-                        title:'Forbidden',
+                        title:'Forbidden.',
                         message:`Oh oh! You can't access this page. 
                         The course you're trying to update belongs to the user "${User.firstName}"`
                     }
@@ -110,9 +110,8 @@ class UpdateCourse extends PureComponent{
         const decryptedString = decrypt(password);
 
         try{
+            //if res equals does not equal error direct to homepage. 
             const res = await data.updateCourse(`/courses/${id}`, newCourse, emailAddress, decryptedString);            
-            //if res has a message property, it means an error has occurred
-            //otherwise it will move to home page
             if(res.message) throw res;
             else history.push('/');
 

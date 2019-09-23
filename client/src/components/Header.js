@@ -33,7 +33,7 @@ function Header({ context:{ authenticatedUser }, location:{ pathname }}){
         </div>
       </div>
     </Fragment>
-  );
+  )
 }
 
 export default withRouter(Header)

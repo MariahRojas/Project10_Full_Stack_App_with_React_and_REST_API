@@ -32,14 +32,13 @@ const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'tr
 //Testing the connection to the database
 (async () => {
   try {
-    await sequelize.authenticate();    
-    //Sync models
+    await sequelize.authenticate();       
+    //sync models
     await sequelize.sync();
     console.log('Connection has been established successfully.');
 
   }catch(err){
     console.log('Unable to connect to the database:', err)
-
   }
 })(sequelize)
 

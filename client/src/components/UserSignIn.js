@@ -27,18 +27,14 @@ class SignIn extends Component{
     const { emailAddress, password } = this.state;
 
     try{
-
+      // await res if res is null, password or email error. Else goo back to previous page visited. 
       const res = await signIn(emailAddress, password);
-      //if res is null, it means an error has occurred
-        //either wrong email or password
-      //otherwise it will move to home page or last page visited before the signed in
       if(res.isNull) throw res;
       else history.push(from);
 
     }catch(err){
 
-      if(err.errors) this.setState({errorMessages:err.errors});
-
+      if(err.errors) this.setState({errorMessages:err.errors})
     }
   }
 

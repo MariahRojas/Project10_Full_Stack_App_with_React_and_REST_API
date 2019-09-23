@@ -16,7 +16,6 @@ const options = {
 //Returns a list of courses //needs to include a user that owns that course
 router.get('/courses', async ( req, res ) => {
     const allCourses = await Course.findAll(options);
-    res.json(allCourses)
     res.status(200).json(allCourses);
 });
 

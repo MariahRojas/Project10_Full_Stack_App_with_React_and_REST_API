@@ -32,7 +32,6 @@ const ErrorHandlerWithContext = withContext(ErrorHandler);
 
 class App extends Component {
   render(){
-
     //shows when authenticated user is logged in else redirect to homepage 
     const PrivateRoute = withContext(({context,component: Component, ...rest }) => {
       return (
@@ -62,7 +61,7 @@ class App extends Component {
         <Route exact path="/courses/:id" component={UsersCourseWithContext} />
         <Route path="/signup" component={SignUpWithContext} />
         <Route path="/signin" component={SignInWithContext} />
-        <Route path="/signOut" component={SignOutWithContext} />
+        <Route path="/signout" component={SignOutWithContext} />
         <Route path="/forbidden" component={ErrorHandlerWithContext} />
         <Route component={ErrorHandlerWithContext} />
         </Switch>

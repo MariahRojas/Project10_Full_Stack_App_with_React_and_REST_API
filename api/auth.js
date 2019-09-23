@@ -44,12 +44,12 @@ const authUser = async (req, res, next) => {
     }
 }
 
-const  asyncHandler = (cb) => {
-    return async (req,res,next)=> {
+const asyncHandler = (cb) => {
+    return async (req, res, next)=> {
         try {
-        await cb(req,res,next);
+        await cb(req, res, next);
         } catch(err) {
-        res.render('error', {error:err});
+        res.render('error', { error:err });
         }
     }
 }

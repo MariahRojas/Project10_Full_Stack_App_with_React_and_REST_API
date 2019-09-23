@@ -148,7 +148,7 @@ class CourseDetail extends PureComponent {
                             <ul className="course--stats--list">
                                 <li className="course--stats--list--item">
                                 {
-                                    /*only show estimatedTime if its not empty*/
+                                    //hide estimated time if empty else show. 
                                     (estimatedTime)?
                                     <Fragment>
                                     <h4>Estimated Time</h4>
@@ -159,7 +159,7 @@ class CourseDetail extends PureComponent {
                                 </li>
                                 <li className="course--stats--list--item">
                                 {
-                                    /*only show materialsNeeded if its not empty*/
+                                    //hide materials needed if empty else show. 
                                     (materialsNeeded)?
                                     <Fragment>
                                         <h4>Materials Needed</h4>
