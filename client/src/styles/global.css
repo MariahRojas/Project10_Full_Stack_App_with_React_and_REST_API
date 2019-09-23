@@ -101,6 +101,7 @@ body {
   height: 100%;
 }
 
+
 /* line 106, ../sass/reset.sass */
 article,
 aside,
@@ -207,7 +208,7 @@ body {
 
 /* line 13, ../sass/global.sass */
 .header {
-  background: #57496e;
+  background: #4e4983;
   padding: 20px 0;
   margin-bottom: 30px;
 }
@@ -221,7 +222,7 @@ body {
 }
 /* line 23, ../sass/global.sass */
 .header--logo a {
-  color: rgba(255, 255, 255, 0.5);
+  color: #fff;
 }
 /* line 25, ../sass/global.sass */
 .header--logo a:hover {
@@ -283,7 +284,7 @@ h1 {
 
 /* line 61, ../sass/global.sass */
 a {
-  color: #7c689b;
+  color: #4e4983;
   cursor: pointer;
   text-decoration: none;
   -webkit-transition: color 0.2s;
@@ -340,7 +341,7 @@ p {
 
 /* line 102, ../sass/global.sass */
 .course--module {
-  background: #7c689b;
+  background: #4e4983;
   border-radius: 8px;
   padding: 30px;
   margin-bottom: 30px;
@@ -630,7 +631,7 @@ textarea:focus {
 /* line 488, ../sass/global.sass */
 input {
   width: 100%;
-  color: #332a40;
+  color: #4e4983;
   border-radius: 8px;
   border: 1px solid #ccc4d8;
   padding: 15px;
@@ -679,7 +680,7 @@ input:focus {
 
 /* line 507, ../sass/global.sass */
 .button {
-  background: #7c689b;
+  background: #4e4983;
   color: #fff;
   font-family: "Work Sans", sans-serif;
   font-size: 18px;
